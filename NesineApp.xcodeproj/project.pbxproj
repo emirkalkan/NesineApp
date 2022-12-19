@@ -9,21 +9,35 @@
 /* Begin PBXBuildFile section */
 		BE2EC04429507B9D00D8067C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC04329507B9D00D8067C /* AppDelegate.swift */; };
 		BE2EC04629507B9D00D8067C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC04529507B9D00D8067C /* SceneDelegate.swift */; };
-		BE2EC04829507B9D00D8067C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC04729507B9D00D8067C /* ViewController.swift */; };
+		BE2EC04829507B9D00D8067C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC04729507B9D00D8067C /* HomeViewController.swift */; };
 		BE2EC04B29507B9D00D8067C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2EC04929507B9D00D8067C /* Main.storyboard */; };
 		BE2EC04D29507B9E00D8067C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE2EC04C29507B9E00D8067C /* Assets.xcassets */; };
 		BE2EC05029507B9E00D8067C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2EC04E29507B9E00D8067C /* LaunchScreen.storyboard */; };
+		BE2EC05E29507C3900D8067C /* NetworkServivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC05D29507C3900D8067C /* NetworkServivce.swift */; };
+		BE2EC06129507C6D00D8067C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC06029507C6D00D8067C /* Constants.swift */; };
+		BE2EC06329507D4500D8067C /* ItunesSearchApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC06229507D4500D8067C /* ItunesSearchApiModel.swift */; };
+		BE2EC066295081AC00D8067C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC065295081AC00D8067C /* HomeViewModel.swift */; };
+		BE2EC0692950831000D8067C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BE2EC0682950831000D8067C /* Alamofire */; };
+		BE2EC06C2950832800D8067C /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = BE2EC06B2950832800D8067C /* AlamofireImage */; };
+		BE2EC06E2950977B00D8067C /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC06D2950977B00D8067C /* HomeCollectionViewCell.swift */; };
+		BE2EC07029509F6000D8067C /* HomeCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC06F29509F6000D8067C /* HomeCollectionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BE2EC04029507B9D00D8067C /* NesineApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NesineApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2EC04329507B9D00D8067C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2EC04529507B9D00D8067C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BE2EC04729507B9D00D8067C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BE2EC04729507B9D00D8067C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BE2EC04A29507B9D00D8067C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE2EC04C29507B9E00D8067C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE2EC04F29507B9E00D8067C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE2EC05129507B9E00D8067C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE2EC05D29507C3900D8067C /* NetworkServivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServivce.swift; sourceTree = "<group>"; };
+		BE2EC06029507C6D00D8067C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BE2EC06229507D4500D8067C /* ItunesSearchApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesSearchApiModel.swift; sourceTree = "<group>"; };
+		BE2EC065295081AC00D8067C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		BE2EC06D2950977B00D8067C /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		BE2EC06F29509F6000D8067C /* HomeCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE2EC0692950831000D8067C /* Alamofire in Frameworks */,
+				BE2EC06C2950832800D8067C /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +72,85 @@
 		BE2EC04229507B9D00D8067C /* NesineApp */ = {
 			isa = PBXGroup;
 			children = (
-				BE2EC04329507B9D00D8067C /* AppDelegate.swift */,
-				BE2EC04529507B9D00D8067C /* SceneDelegate.swift */,
-				BE2EC04729507B9D00D8067C /* ViewController.swift */,
+				BE2EC05F29507C6100D8067C /* Utilities */,
+				BE2EC05C29507C1300D8067C /* NetworkService */,
+				BE2EC05B29507BD900D8067C /* Core */,
+				BE2EC05A29507BC800D8067C /* Home */,
+				BE2EC0642950817000D8067C /* Detail */,
 				BE2EC04929507B9D00D8067C /* Main.storyboard */,
 				BE2EC04C29507B9E00D8067C /* Assets.xcassets */,
 				BE2EC04E29507B9E00D8067C /* LaunchScreen.storyboard */,
 				BE2EC05129507B9E00D8067C /* Info.plist */,
 			);
 			path = NesineApp;
+			sourceTree = "<group>";
+		};
+		BE2EC05729507BAC00D8067C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC06229507D4500D8067C /* ItunesSearchApiModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BE2EC05829507BB400D8067C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC065295081AC00D8067C /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BE2EC05929507BBC00D8067C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC04729507B9D00D8067C /* HomeViewController.swift */,
+				BE2EC06D2950977B00D8067C /* HomeCollectionViewCell.swift */,
+				BE2EC06F29509F6000D8067C /* HomeCollectionHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BE2EC05A29507BC800D8067C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC05729507BAC00D8067C /* Model */,
+				BE2EC05929507BBC00D8067C /* View */,
+				BE2EC05829507BB400D8067C /* ViewModel */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BE2EC05B29507BD900D8067C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC04529507B9D00D8067C /* SceneDelegate.swift */,
+				BE2EC04329507B9D00D8067C /* AppDelegate.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BE2EC05C29507C1300D8067C /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC05D29507C3900D8067C /* NetworkServivce.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		BE2EC05F29507C6100D8067C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC06029507C6D00D8067C /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		BE2EC0642950817000D8067C /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +169,10 @@
 			dependencies = (
 			);
 			name = NesineApp;
+			packageProductDependencies = (
+				BE2EC0682950831000D8067C /* Alamofire */,
+				BE2EC06B2950832800D8067C /* AlamofireImage */,
+			);
 			productName = NesineApp;
 			productReference = BE2EC04029507B9D00D8067C /* NesineApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +201,10 @@
 				Base,
 			);
 			mainGroup = BE2EC03729507B9D00D8067C;
+			packageReferences = (
+				BE2EC0672950831000D8067C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				BE2EC06A2950832800D8067C /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+			);
 			productRefGroup = BE2EC04129507B9D00D8067C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,9 +232,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE2EC04829507B9D00D8067C /* ViewController.swift in Sources */,
+				BE2EC04829507B9D00D8067C /* HomeViewController.swift in Sources */,
+				BE2EC06129507C6D00D8067C /* Constants.swift in Sources */,
+				BE2EC066295081AC00D8067C /* HomeViewModel.swift in Sources */,
+				BE2EC07029509F6000D8067C /* HomeCollectionHeaderView.swift in Sources */,
+				BE2EC06329507D4500D8067C /* ItunesSearchApiModel.swift in Sources */,
+				BE2EC05E29507C3900D8067C /* NetworkServivce.swift in Sources */,
 				BE2EC04429507B9D00D8067C /* AppDelegate.swift in Sources */,
 				BE2EC04629507B9D00D8067C /* SceneDelegate.swift in Sources */,
+				BE2EC06E2950977B00D8067C /* HomeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +458,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE2EC0672950831000D8067C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		BE2EC06A2950832800D8067C /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE2EC0682950831000D8067C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE2EC0672950831000D8067C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		BE2EC06B2950832800D8067C /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE2EC06A2950832800D8067C /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BE2EC03829507B9D00D8067C /* Project object */;
 }
