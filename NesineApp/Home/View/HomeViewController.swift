@@ -9,6 +9,7 @@ import UIKit
 
 protocol ViewControllerDelegate: NSObject {
     func updateUI()
+    func showNoDataView()
 }
 
 class HomeViewController: UIViewController {
@@ -44,6 +45,14 @@ class HomeViewController: UIViewController {
         collectionView.register(HomeCollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeCollectionHeaderView.identifier)
         return collectionView
     }()
+    
+    private lazy var noDataView: UILabel = {
+        let label = UILabel()
+        label.text = "No Data."
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -53,7 +62,7 @@ class HomeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        homeViewModel.fetchData()
+        //homeViewModel.fetchData()
     }
     
     private func setupView() {
@@ -77,8 +86,16 @@ class HomeViewController: UIViewController {
 //MARK: Searchbar
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        if searchText == "" {
+            //clean arrays
+            homeViewModel.imageUrl?.removeAll()
+            noDataView.removeFromSuperview()
+        } else {
+            self.collectionView.reloadData()
+            self.homeViewModel.fetchData(query: searchText)
+        }
     }
+    
 }
 
 //MARK: CollectionView
@@ -89,7 +106,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
+            return self.homeViewModel.imageUrl?.count ?? 0
         } else if section == 1 {
             return 3
         } else if section == 2 {
@@ -103,14 +120,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
-        
+        guard let data = homeViewModel.imageUrl else { return cell }
         if indexPath.section == 0 {
-            cell.productImageView.backgroundColor = .yellow
+            cell.setData(item: data[indexPath.row])
+            //cell.photoImageView.backgroundColor = .yellow
         } else if indexPath.section == 1 {
-            cell.productImageView.backgroundColor = .red
+            cell.photoImageView.backgroundColor = .red
             //cell.productImageView.backgroundColor = UIImage(named: items2[indexPath.row])
         } else if indexPath.section == 2 {
-            cell.productImageView.backgroundColor = .black
+            cell.photoImageView.backgroundColor = .black
         } else if indexPath.section == 3 {
            
         } else {
@@ -120,6 +138,26 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         //cell.productImageView.image = UIImage(named: productImages[indexPath.row])
         //cell.productNameLabel.text = productNames[indexPath.row]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selected section: \(indexPath.section), selected row: \(indexPath.row)")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
+        var selectedIndex: Int? = 0
+        if indexPath.section == 0 {
+            selectedIndex = indexPath.row
+            
+        } else if indexPath.section == 1 {
+           
+        } else if indexPath.section == 2 {
+            
+        } else if indexPath.section == 3 {
+            
+        }
+
+        let vc = DetailViewController(number: selectedIndex!)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -147,7 +185,22 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension HomeViewController: ViewControllerDelegate {
     func updateUI() {
-        self.collectionView.reloadData()
+            self.view.addSubview(self.collectionView)
+            collectionView.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor).isActive = true
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            self.collectionView.reloadData()
+    }
+    
+    func showNoDataView() {
+        self.collectionView.removeFromSuperview()
+        self.view.addSubview(noDataView)
+        
+        noDataView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        noDataView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        noDataView.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        noDataView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
 }
 

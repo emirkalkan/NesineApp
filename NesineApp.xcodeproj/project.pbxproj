@@ -21,6 +21,8 @@
 		BE2EC06C2950832800D8067C /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = BE2EC06B2950832800D8067C /* AlamofireImage */; };
 		BE2EC06E2950977B00D8067C /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC06D2950977B00D8067C /* HomeCollectionViewCell.swift */; };
 		BE2EC07029509F6000D8067C /* HomeCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC06F29509F6000D8067C /* HomeCollectionHeaderView.swift */; };
+		BE2EC0722950B6E100D8067C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC0712950B6E100D8067C /* DetailViewController.swift */; };
+		BE2EC0752951157400D8067C /* UIImageView + Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EC0742951157400D8067C /* UIImageView + Kingfisher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		BE2EC065295081AC00D8067C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BE2EC06D2950977B00D8067C /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE2EC06F29509F6000D8067C /* HomeCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionHeaderView.swift; sourceTree = "<group>"; };
+		BE2EC0712950B6E100D8067C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BE2EC0742951157400D8067C /* UIImageView + Kingfisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Kingfisher.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 		BE2EC05F29507C6100D8067C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				BE2EC0732951156100D8067C /* Extensions */,
 				BE2EC06029507C6D00D8067C /* Constants.swift */,
 			);
 			path = Utilities;
@@ -149,8 +154,17 @@
 		BE2EC0642950817000D8067C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				BE2EC0712950B6E100D8067C /* DetailViewController.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		BE2EC0732951156100D8067C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EC0742951157400D8067C /* UIImageView + Kingfisher.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,8 +253,10 @@
 				BE2EC06329507D4500D8067C /* ItunesSearchApiModel.swift in Sources */,
 				BE2EC05E29507C3900D8067C /* NetworkServivce.swift in Sources */,
 				BE2EC04429507B9D00D8067C /* AppDelegate.swift in Sources */,
+				BE2EC0722950B6E100D8067C /* DetailViewController.swift in Sources */,
 				BE2EC04629507B9D00D8067C /* SceneDelegate.swift in Sources */,
 				BE2EC06E2950977B00D8067C /* HomeCollectionViewCell.swift in Sources */,
+				BE2EC0752951157400D8067C /* UIImageView + Kingfisher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

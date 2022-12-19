@@ -7,29 +7,18 @@
 
 import Foundation
 import UIKit
+import AlamofireImage
 
 class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = "HomeCollectionViewCell"
+    var blankImg: NSData? = nil
     
-    lazy var productImageView: UIImageView = {
+    lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .red
         return imageView
     }()
-    
-    /*lazy var productNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Deneme"
-        label.font = UIFont(name: "PingFangSC-Semibold",size: 20)
-        label.textAlignment = .center
-        label.lineBreakMode = .byWordWrapping
-        label.adjustsFontSizeToFitWidth = false
-        label.textColor = UIColor.black
-        return label
-    }()*/
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,36 +29,28 @@ class HomeCollectionViewCell: UICollectionViewCell {
         fatalError()
     }
     
-    /*override func layoutSubviews() {
-        super.layoutSubviews()
-        imageView.frame = contentView.bounds
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
-    }*/
-    
     private func setupViews() {
-        self.addSubview(productImageView)
+        self.addSubview(photoImageView)
         //self.addSubview(productNameLabel)
         
         NSLayoutConstraint.activate([
-            productImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            productImageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            productImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            productImageView.widthAnchor.constraint(equalToConstant: 160),
-            productImageView.heightAnchor.constraint(equalToConstant: 160),
-            
-            /*productNameLabel.topAnchor.constraint(equalTo: productImageView.bottomAnchor),
-            productNameLabel.centerXAnchor.constraint(equalTo: productImageView.centerXAnchor),
-            productNameLabel.widthAnchor.constraint(equalToConstant: 160),
-            productNameLabel.heightAnchor.constraint(equalToConstant: 50)*/
+            photoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            photoImageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            photoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            photoImageView.widthAnchor.constraint(equalToConstant: 160),
+            photoImageView.heightAnchor.constraint(equalToConstant: 160)
         ])
     }
     
-    func setData() {
-        
+    func setData(item: String) {
+        photoImageView.af.setImage(withURL: (URL(string: item) ?? URL(string: ""))!)
+        /*let img: UIImage? = photoImageView.image
+        let imgData: NSData = UIImageJPEGRepresentation(img, 0)*/
+        //print("Size of Image: \(imgData.length) bytes")
+        guard let photo = photoImageView.image else { return }
+        let imgData = NSData(data: photo.jpegData(compressionQuality: 1)!)
+        var imageSize: Int = imgData.count
+        print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
     }
 }
 

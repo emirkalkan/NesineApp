@@ -12,7 +12,7 @@ class NetworkService {
     static let shared = NetworkService()
     
     //ios user input
-    var url = "https://itunes.apple.com/search?term=ios"
+    var url = "https://itunes.apple.com/search?term="
     var endPoint = "&media=software"
     
     func returnUrl() -> String {
@@ -43,8 +43,9 @@ class NetworkService {
         }.resume()
     }
     
-    func getData(completion: @escaping (ItunesSearchApiModel?) -> Void) {
-        AF.request(returnUrl()).responseDecodable(of: ItunesSearchApiModel.self) { response in
+    func getData(query: String, completion: @escaping (ItunesSearchApiModel?) -> Void) {
+        let url = Constants.url+query+Constants.endPoint
+        AF.request(url).responseDecodable(of: ItunesSearchApiModel.self) { response in
             guard let data = response.value else {
                 completion(nil)
                 return
@@ -52,5 +53,17 @@ class NetworkService {
             completion(data)
         }
     }
+    
+    /*func getImage(_ url: String, completion: @escaping (UIImage?) -> Void) {
+        print(url)
+        Alamofire.request(url, method: .get).responseima { response in
+            if let data = response.result.value {
+                completion(data)
+            } else {
+                completion(nil)
+            }
+        }
+    }*/
+    
 }
     
