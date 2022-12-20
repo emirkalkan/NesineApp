@@ -8,6 +8,6 @@
 import Foundation
 
 struct Constants {
-    static let url = "https://itunes.apple.com/search?term=ios"
+    static let url = "https://itunes.apple.com/search?term="
     static let endPoint = "&media=software"
 }

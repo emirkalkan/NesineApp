@@ -31,7 +31,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     private func setupViews() {
         self.addSubview(photoImageView)
-        //self.addSubview(productNameLabel)
         
         NSLayoutConstraint.activate([
             photoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -40,17 +39,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
             photoImageView.widthAnchor.constraint(equalToConstant: 160),
             photoImageView.heightAnchor.constraint(equalToConstant: 160)
         ])
-    }
-    
-    func setData(item: String) {
-        photoImageView.af.setImage(withURL: (URL(string: item) ?? URL(string: ""))!)
-        /*let img: UIImage? = photoImageView.image
-        let imgData: NSData = UIImageJPEGRepresentation(img, 0)*/
-        //print("Size of Image: \(imgData.length) bytes")
-        guard let photo = photoImageView.image else { return }
-        let imgData = NSData(data: photo.jpegData(compressionQuality: 1)!)
-        var imageSize: Int = imgData.count
-        print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
     }
 }
 

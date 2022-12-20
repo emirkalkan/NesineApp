@@ -11,6 +11,7 @@ class HomeViewModel: NSObject {
     weak var delegate: ViewControllerDelegate?
     
     var responseData: ItunesSearchApiModel?
+    var resultData: [Result]?
     var imageUrl: [String]?
     
     func fetchData(query: String) {
@@ -21,10 +22,11 @@ class HomeViewModel: NSObject {
                 if response?.resultCount != 0 {
                     self.responseData = response
                     guard let data = response?.results else { return }
+                    //print(data)
+                    self.resultData = data
                     for item in data {
                         self.imageUrl = item.screenshotUrls
-                        print(self.imageUrl?.count)
-                        print(self.imageUrl?[0])
+                        print(self.imageUrl)
                     }
                     delegate.updateUI()
                 } else {
@@ -34,16 +36,25 @@ class HomeViewModel: NSObject {
         }
     }
     
-    /*func downloadImage(url: String) {
-        guard let delegate = delegate else { return }
-        NetworkService.shared.getImage("") { image in
-            if image != nil {
-                let imgData = NSData(data: image.jpegData(compressionQuality: 1)!)
-                var imageSize: Int = imgData.count
-                print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
-                //self.imageData?.append(image)
-                delegate.updateUI()
+    func getImageUrlValues() -> [String] {
+        guard let url = imageUrl else { return [] }
+        return url
+    }
+    
+    func getImage(url: String) async -> Data? {
+        guard let imageUrl = URL(string: url) else { return nil }
+        let request = URLRequest(url: imageUrl)
+        let (data, _) = try! await URLSession.shared.data(for: request, delegate: nil)
+        return data
+        /*
+        //DispatchQueue.global().async {
+            var data: Data?
+            do {
+                data = try Data(contentsOf: imageUrl)
+            } catch {
+                print("Fail: \(error)")
             }
-        }
-    }*/
+            return data*/
+        //}
+    }
 }

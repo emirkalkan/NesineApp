@@ -10,22 +10,21 @@ import UIKit
 protocol ViewControllerDelegate: NSObject {
     func updateUI()
     func showNoDataView()
+    //func findSizeOfImage(image: UIImage)
 }
 
 class HomeViewController: UIViewController {
-    /*enum PhotoCategories: String {
-        case "0-100"
-        case "100-250"
-        case "250-500"
-        case "500"
-    }*/
     
     //MARK: Variables & UI
     private var homeViewModel = HomeViewModel()
     private var photoCategories = [0, 100, 250, 500]
     
-    private var items = ["black", "black", "black", "black", "black", "black", "black", "black", "black", "black"]
-    private var items2 = [".black", ".black", ".black", ".black", ".black", ".black", ".black", ".black", ".black", ".black"]
+    private var zeroKbs = [UIImage]()
+    private var hundredKbs = [UIImage]()
+    private var twoHundredFiftyKbs = [UIImage]()
+    private var fiveHundredKbs = [UIImage]()
+    
+    private var flag = false
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -60,10 +59,6 @@ class HomeViewController: UIViewController {
         setupView()
         homeViewModel.delegate = self
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        //homeViewModel.fetchData()
-    }
     
     private func setupView() {
         self.view.addSubview(searchBar)
@@ -81,18 +76,71 @@ class HomeViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
+    
+    func findSizeOfImage(image: UIImage) -> Double {
+        let imgData = NSData(data: image.jpegData(compressionQuality: 1)!)
+        var imageSize: Int = imgData.count
+        print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+        return Double(imageSize) / 1000.0
+    }
+    
+    func classifyImage(image: UIImage, size: Double) {
+        if size>0, size<100 {
+            self.zeroKbs.append(image)
+        } else if size>=100, size<250 {
+            self.hundredKbs.append(image)
+        } else if size>=250, size<500 {
+            self.twoHundredFiftyKbs.append(image)
+        } else if size>=500 {
+            self.fiveHundredKbs.append(image)
+        }
+    }
 }
 
 //MARK: Searchbar
 extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.zeroKbs.removeAll()
+        self.hundredKbs.removeAll()
+        self.twoHundredFiftyKbs.removeAll()
+        self.fiveHundredKbs.removeAll()
         if searchText == "" {
             //clean arrays
-            homeViewModel.imageUrl?.removeAll()
+            self.flag = false
             noDataView.removeFromSuperview()
+            updateUI()
         } else {
-            self.collectionView.reloadData()
-            self.homeViewModel.fetchData(query: searchText)
+            NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                                   selector: #selector(self.fetchData(text: )),
+                                                       object: nil)
+            self.perform(#selector(self.fetchData(text: )), with: searchText, afterDelay: 0.8)
+            
+        }
+    }
+    
+    func loadImages(item: String) {
+        Task {
+            if let data = await self.homeViewModel.getImage(url: item) {
+                if let imageData = UIImage(data: data) {
+                    var size = self.findSizeOfImage(image: imageData)
+                    self.classifyImage(image: imageData, size: size)
+                }
+            }
+        }
+    }
+    
+    @objc func fetchData(text: String) {
+        print(text)
+        self.homeViewModel.fetchData(query: text)
+        for item in self.homeViewModel.getImageUrlValues() {
+            print(item)
+            self.flag = true
+            //do {
+            self.loadImages(item: item)
+            updateUI()
+            /*} catch {
+                print("error")
+            }*/
         }
     }
     
@@ -101,18 +149,18 @@ extension HomeViewController: UISearchBarDelegate {
 //MARK: CollectionView
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return flag == false ? 0 : photoCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return self.homeViewModel.imageUrl?.count ?? 0
+            return self.zeroKbs.count
         } else if section == 1 {
-            return 3
+            return self.hundredKbs.count
         } else if section == 2 {
-            return 1
+            return self.twoHundredFiftyKbs.count
         } else if section == 3 {
-            return 2
+            return self.fiveHundredKbs.count
         } else {
             return 0
         }
@@ -120,42 +168,38 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
-        guard let data = homeViewModel.imageUrl else { return cell }
+        
         if indexPath.section == 0 {
-            cell.setData(item: data[indexPath.row])
-            //cell.photoImageView.backgroundColor = .yellow
+            cell.photoImageView.image = self.zeroKbs[indexPath.row]
         } else if indexPath.section == 1 {
-            cell.photoImageView.backgroundColor = .red
-            //cell.productImageView.backgroundColor = UIImage(named: items2[indexPath.row])
+            cell.photoImageView.image = self.hundredKbs[indexPath.row]
         } else if indexPath.section == 2 {
-            cell.photoImageView.backgroundColor = .black
+            cell.photoImageView.image = self.twoHundredFiftyKbs[indexPath.row]
         } else if indexPath.section == 3 {
-           
+            cell.photoImageView.image = self.fiveHundredKbs[indexPath.row]
         } else {
            
         }
-        //if indexPath.section
-        //cell.productImageView.image = UIImage(named: productImages[indexPath.row])
-        //cell.productNameLabel.text = productNames[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected section: \(indexPath.section), selected row: \(indexPath.row)")
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
+        //let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
         var selectedIndex: Int? = 0
+        var selectedImage: UIImage? = nil
         if indexPath.section == 0 {
             selectedIndex = indexPath.row
-            
+            selectedImage = self.zeroKbs[indexPath.row]
         } else if indexPath.section == 1 {
-           
+            selectedImage = self.hundredKbs[indexPath.row]
         } else if indexPath.section == 2 {
-            
+            selectedImage = self.twoHundredFiftyKbs[indexPath.row]
         } else if indexPath.section == 3 {
-            
+            selectedImage = self.fiveHundredKbs[indexPath.row]
         }
 
-        let vc = DetailViewController(number: selectedIndex!)
+        let vc = DetailViewController(number: selectedIndex!, image: selectedImage!)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
@@ -202,5 +246,11 @@ extension HomeViewController: ViewControllerDelegate {
         noDataView.widthAnchor.constraint(equalToConstant: 160).isActive = true
         noDataView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
+    
+    /*func findSizeOfImage(image: UIImage) {
+        let imgData = NSData(data: image.jpegData(compressionQuality: 1)!)
+        var imageSize: Int = imgData.count
+        print("actual size of image in KB: %f ", Double(imageSize) / 1000.0)
+    }*/
 }
 
